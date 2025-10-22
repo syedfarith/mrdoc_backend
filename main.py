@@ -23,7 +23,11 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",  # Local development
+        "https://mrdoc-frontend.vercel.app",  # Deployed frontend
+        "*"  # Allow all origins for now - you can restrict this later
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
