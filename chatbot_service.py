@@ -1,14 +1,21 @@
 import json
+import os
 from typing import List, Dict, Optional
 from datetime import datetime
 from groq import Groq
 from sqlalchemy.orm import Session
 from database import get_db, Doctor
 import asyncio
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class HealthcareChatbot:
     def __init__(self):
-        self.api_key = "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"
+        self.api_key = os.getenv("GROQ_API_KEY")
+        if not self.api_key:
+            raise ValueError("GROQ_API_KEY not found in environment variables")
         self.client = Groq(api_key=self.api_key)
         self.conversations = {}
         self.model = "llama-3.1-8b-instant"
